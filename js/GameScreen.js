@@ -12,13 +12,12 @@ class GameScreen extends Phaser.Scene {
 		this.LEVELS =
 	     [
 				 //0
-	      [[1,1,1,0,0,0,0],
-	       [1,1,0,0,0,0,0],
-	       [1,0,0,0,0,0,0],
-	       [0,0,0,0,0,0,0],
-	       [0,0,0,0,0,0,2],
-	       [0,0,0,0,0,2,2],
-	       [0,0,0,0,2,2,2],
+	      [[1,1,1,0,0,0],
+	       [1,1,0,0,0,0],
+	       [1,0,0,0,0,0],
+	       [0,0,0,0,0,2],
+	       [0,0,0,0,2,2],
+	       [0,0,0,2,2,2],
 	      ],
 	      //1
 	      [[1,1,1,-1,-1,0,0,0],
@@ -80,18 +79,23 @@ class GameScreen extends Phaser.Scene {
 		this.initControls();
 		this.initTimer();
 		this.initGameField(0);
-		this.updateScore();
+        this.updateScore();
+      console.log(this.spots.children);
+     
+         
+     
   }
 
-	update(){
-
+    update() {
 	}
 
-	initControls(){
+    initControls() {
+        let w = config.scale.size;
+        console.log('w = ', w);
 		let rects = [
-			this.add.rectangle(20, 20, 100, 50, 0xffffff),
-			this.add.rectangle(380, 20, 100, 50, 0xffffff),
-			this.add.rectangle(175, 20, 150, 50, 0xffffff),
+			this.add.rectangle(w*0.08, 10, w*0.8, w/10, 0xffffff),
+			//this.add.rectangle(w/2-w/8, 10, w/4, w/10, 0xffffff),
+			//this.add.rectangle(w*0.9-w/4, 10, w/4, w/10, 0xffffff),
 		];
 		for (let rect of rects) {
 			rect.setOrigin(0,0);
@@ -99,21 +103,21 @@ class GameScreen extends Phaser.Scene {
 
 		let textStyle = {
 			fontFamily: 'monospace',
-		  fill: '#000000',
-		  fontSize: '50px',
-			align: 'center',
+		    fill: '#000000',
+		    fontSize: Math.floor(w/12)+'px',
+            align: 'center'
 		};
 
-		this.screenControls.timer = this.add.text(180, 20, '00:10', textStyle);
+        this.screenControls.timer = this.add.text(w*0.377, 10, '00:10', textStyle);
 
 		textStyle.fill = '#ff0000';
-		this.screenControls.playerScore = this.add.text(40, 20, '10', textStyle);
+        this.screenControls.playerScore = this.add.text(w * 0.12, 10, '10', textStyle);
 
 		textStyle.fill = '#00ff';
-		this.screenControls.opponentScore = this.add.text(455, 20, '10', textStyle).setOrigin(1,0);
+        this.screenControls.opponentScore = this.add.text(w * 0.85, 10, '10', textStyle).setOrigin(1,0);
 
 		textStyle.fill = '#ddff00';
-		this.screenControls.infoText = this.add.text(150, config.height/2-50, 'Some Text', textStyle);
+		this.screenControls.infoText = this.add.text(150, w/2-50, 'Some Text', textStyle);
 		this.screenControls.infoText.visible = false;
 		this.screenControls.infoText.setShadow(5, 5, '#333333', 5, true, true);
 	}
@@ -121,7 +125,7 @@ class GameScreen extends Phaser.Scene {
 	showGameMessage(str, callback, ms = 1000){
 		this.screenControls.infoText.text = str;
 		this.screenControls.infoText.visible = true;
-		this.screenControls.infoText.x = (config.width - this.screenControls.infoText.width) / 2;
+        this.screenControls.infoText.x = (config.scale.size - this.screenControls.infoText.width) / 2;
 		console.log("callback = ", callback);
 
 		setTimeout(()=>{
@@ -132,11 +136,11 @@ class GameScreen extends Phaser.Scene {
 
 	initTimer(){
 		this.timer = this.time.addEvent({
-    	delay: 1000,
-    	callback: this.onTimer,
-			callbackScope: this,
-    	loop: true
-		});
+    	    delay: 1000,
+    	    callback: this.onTimer,
+		    callbackScope: this,
+    	    loop: true
+		    });
 		this.gameTimer = this.TIME_TO_STEP;
 	}
 
@@ -147,10 +151,11 @@ class GameScreen extends Phaser.Scene {
 		":" + ((ts<10)? ("0"+ts.toString()) : ts.toString());
 		if (this.gameTimer-- <= 0) this.missStep();
 		if (this.checkGameFinished()) {
-				this.timer.remove();
-				this.showGameMessage(this.RESULT_TEXTS[Math.sign(this.scores.player - this.scores.opponent) + 1],
-					()=>{this.restartGame()}, 2000);
-	  }
+			this.timer.remove();
+			this.showGameMessage(this.RESULT_TEXTS[Math.sign(this.scores.player - this.scores.opponent) + 1],
+                () => { this.restartGame() },
+                2000);
+	    }
 	}
 
 	restartGame(){
@@ -180,14 +185,13 @@ class GameScreen extends Phaser.Scene {
 	}
 
 	opponentGo(){
-		console.log("opponentGo ", this.canMakeStep(this.CODES.OPPONENT));
 		if (this.checkGameFinished()) return;
 		if (!this.canMakeStep(this.CODES.OPPONENT)){
 			this.showGameMessage('I have no step :(');
 			this.playerGo();
 			return;
-		}
-		if (this.activeSpot) this.activeSpot.setScale(1);
+        }
+        if (this.activeSpot) this.activeSpot.Selected = false;
 		this.gameTimer = this.TIME_TO_STEP;
 		this.turn = this.CODES.OPPONENT;
 		setTimeout(() => {this.makeStepOppenent();}, 1500);
@@ -200,7 +204,8 @@ class GameScreen extends Phaser.Scene {
 		}	else {
 			this.game_field = this.cloneArray(this.LEVELS[this.level]);
 		}
-		this.field_container = this.add.container(70, 120);
+        this.field_container = this.add.container(config.scale.size * 0.15, config.scale.size * 0.2);
+        this.CELL_SIZE = config.scale.size * 0.8 / this.getColCount();
 		this.spots = this.add.group();
 		this.drawGameField();
 		this.initSpots();
@@ -213,7 +218,7 @@ class GameScreen extends Phaser.Scene {
 		let rc = this.getRowCount(), cc = this.getColCount();
 		for (let i = 0; i<rc; i++){
 			for (let j = 0; j<cc; j++){
-						this.drawCell(i, j, this.game_field[i][j] == this.CODES.DUMMY);
+				this.drawCell(i, j, this.game_field[i][j] == this.CODES.DUMMY);
 			}
 		}
 	}
@@ -233,7 +238,8 @@ class GameScreen extends Phaser.Scene {
 	}
 
 	drawCell(row, col, fill){
-		let cell_img = this.add.image(col*this.CELL_SIZE, row*this.CELL_SIZE, fill ? 'cell1' : 'cell');
+        let cell_img = this.add.image(col * this.CELL_SIZE, row * this.CELL_SIZE, fill ? 'cell1' : 'cell');
+        cell_img.setScale(this.CELL_SIZE / cell_img.width, this.CELL_SIZE / cell_img.height);
 		this.field_container.add(cell_img);
 		if (!fill){
 			cell_img.setInteractive();
@@ -256,20 +262,28 @@ class GameScreen extends Phaser.Scene {
 
 	// Draw spot of defined color
 	addSpot(row, col, color){
-		let frame = (color == this.CODES.PLAYER) ? 0 : 9;
-		let spot = this.physics.add.sprite(col*this.CELL_SIZE, row*this.CELL_SIZE, 'spotTile', frame);
-    this.anims.create({
-      key: 'redToBlue',
-      frames: this.anims.generateFrameNumbers('spotTile', { start: 0, end: 8 }),
-      frameRate: 50,
-      repeat: 0
-    });
-		this.anims.create({
-      key: 'blueToRed',
-      frames: this.anims.generateFrameNumbers('spotTile', { start: 9, end: 17 }),
-      frameRate: 50,
-      repeat: 0
-    });
+        let spot = new Spot({
+            scene: this,
+            x: col * this.CELL_SIZE,
+            y: row * this.CELL_SIZE,
+            key: (color == this.CODES.PLAYER) ? 0 : 9,
+            size: this.CELL_SIZE
+        });
+
+        spot.Selected = false;
+        this.anims.create({
+          key: 'redToBlue',
+          frames: this.anims.generateFrameNumbers('spotTile', { start: 0, end: 8 }),
+          frameRate: 50,
+          repeat: 0
+        });
+
+	    this.anims.create({
+          key: 'blueToRed',
+          frames: this.anims.generateFrameNumbers('spotTile', { start: 9, end: 17 }),
+          frameRate: 50,
+          repeat: 0
+        });
 
 		if (color == this.CODES.PLAYER) {
 			spot.setInteractive();
@@ -280,9 +294,8 @@ class GameScreen extends Phaser.Scene {
 		this.field_container.add(spot);
 		this.spots.add(spot);
 		/** for IE 11 */
-		var self = this;
-		spot.row = row;
-		spot.col = col;
+        var self = this;
+        spot.setPositionOnGrid(row, col);
 		spot.on('pointerup', function(event){
 			self.onSpotSelect(spot);
 		});
@@ -291,14 +304,14 @@ class GameScreen extends Phaser.Scene {
 
 	onSpotSelect(spot){
 		if (!this.enabled || this.turn == this.CODES.OPPONENT) return;
-	  if (this.activeSpot != null) {
-			this.activeSpot.setScale(1);
+        if (this.activeSpot != null) {
+            this.activeSpot.Selected = false;
 		}
 		if (spot == this.activeSpot){
 				this.activeSpot = null;
 			}else{
 				this.activeSpot = spot;
-				this.activeSpot.setScale(1.15);
+            this.activeSpot.Selected = true;
 			}
 	}
 
@@ -343,9 +356,8 @@ class GameScreen extends Phaser.Scene {
 	moveSpot(row1, col1, row2, col2, id){
 			let dx = col2 - col1;
 			let dy = row2 - row1;
-			this.activeSpot.setScale(1);
-			this.activeSpot.col = col2;
-			this.activeSpot.row = row2;
+            this.activeSpot.Selected = false;
+            this.activeSpot.setPositionOnGrid(row2, col2);
 			this.activeSpot.setDepth(99);
 			this.enabled = false;
 			let newMovement = this.tweens.add({

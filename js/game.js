@@ -25,10 +25,12 @@ const gameState = {
     scale: {
         mode: Phaser.Scale.FIT,
         parent: "game_container",
-        autoCenter: Phaser.Scale.CENTER_BOTH
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        ratio: window.devicePixelRatio / 3,
+        size: Math.min(window.innerWidth * window.devicePixelRatio, window.innerHeight * window.devicePixelRatio)
     },
     autoRound: false,
-   scene: [SelectScreen, GameScreen]
+     scene: [SelectScreen, GameScreen]
  }
 
  const game = new Phaser.Game(config);

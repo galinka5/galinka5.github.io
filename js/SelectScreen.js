@@ -10,10 +10,13 @@ class SelectScreen extends Phaser.Scene {
 	}
 
   create() {
-		this.screenControls = {};
+      this.screenControls = {};
+      console.log(config.scale.ratio);
 		this.screenControls.caption = this.add.text(config.width/2, config.height/6, 'Click to Start!', {fontFamily: 'Verdana',fill: '#000000', fontSize: '40px'})
-		this.screenControls.caption.x = (config.width - this.screenControls.caption.width) / 2;
-		this.screenControls.startBtn = this.createButton('btn', config.width/2, config.height/2);
+        this.screenControls.caption.x = (config.width - this.screenControls.caption.width) / 2;
+        this.screenControls.caption.setScale(config.scaleRatio);
+        this.screenControls.startBtn = this.createButton('btn', config.width / 2, config.height / 2);
+        this.screenControls.startBtn.setScale(config.scale.ratio);
 		this.screenControls.startBtn.on('pointerup', ()=> {
 					this.scene.stop('SelectScreen')
 					this.scene.start('GameScreen')
