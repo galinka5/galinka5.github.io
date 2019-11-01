@@ -1,0 +1,211 @@
+*{
+  box-sizing: border-box;
+}
+
+body{
+    background-color: #13224b;
+    display: flex;
+    justify-content: center;
+    font-family: "FuturaMediumC", sans-serif; /** Don't know exact font for page */
+}
+
+/** white container for all content */
+.all-content-wrapper {
+  width: 58%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+/** top part with logo headers and button */
+.page-header{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:space-between;
+    align-items: center;
+    margin: 20px;
+}
+
+/** left side logo + headers*/
+.header-left{
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/** container for 2 lines with headers */
+.headers-wrapper {
+    margin-left: 40px;
+}
+
+h1{
+    color:#13224b;
+    font-size: 16pt;
+    font-stretch: condensed;
+    font-weight: 600;
+    margin: 0px;
+}
+
+h2{
+    color:#13224b;
+    font-size:10pt;
+    font-weight: 100;
+    margin: 0px;
+}
+
+/** red button */
+.header-button{
+  color: white; 
+  background: #ed3424; 
+  padding: .9em 3em; 
+  border: none; 
+  font-family: "FuturaMediumC", sans-serif;
+  font-size: 12px;
+  filter: drop-shadow(0px 1px 1px #ed3424);
+}
+
+/** menu line */
+.menu{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: #f6f6f6;
+    padding-left:4em;
+    padding-right: 4em;
+}
+
+/** menu item*/
+.menu-item{
+    color:#13224b;
+    font-size:12pt;
+    font-weight: 100;
+    cursor: pointer;
+    padding-left: .5em; /** underline should be a bit wider than text */
+    padding-right: .5em;
+    border-bottom: solid 3px rgba(0,0,0,0);
+}
+
+.active-item{
+    /**  #ed3424 */
+    border-bottom: solid 3px #13224b;
+    filter: hue-rotate(-219deg) brightness(285%) saturate(93%); /** filyer for male active item red (aprox color)*/
+}
+
+/** align pictogram for last menu item */
+.menu-img{
+     margin-top: 15px;
+}
+
+/** middle part with fixed content divided in 3 blocks*/
+.fixed-content{
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+    flex-wrap: wrap;
+    padding: 0px;
+}
+
+/** block of fiexed content */
+.fixed-content-area{
+    border-bottom:solid 2px #e5e5e5;
+    border-left:solid 1px #e5e5e5;
+    border-top:solid 1px #e5e5e5;
+    
+    color:#13224b;
+    padding-left: 2em;
+    padding-right: 1em;
+}
+
+/** middle area aith header text and ... for supposed link */
+.middle-area {
+  width:44%;
+  display: flex;
+}
+
+/** Font doesn't match the image*/
+.middle-area p{
+    font-family: "Calibry", sans-serif;
+    font-size: 16px;
+    font-weight: 100;
+}
+
+/** 3 dots */
+.dot-link p{
+   padding: 1em 0;
+   font-weight:900;
+   cursor: pointer;
+}
+
+.middle-area h4{
+    font-size: 10px;
+    font-weight: 600;
+}
+
+/** empty left area */
+.left-area {
+  width:23%;
+}
+
+/** Area with big prices */
+.right-area {
+  width:33%;
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-end;
+  padding-right: 4em;
+    margin: 0px;
+}
+
+/** Date of update */
+.fixed-content-date{
+    font-size: 10px;
+    font-weight: 100;
+}
+
+/** container for 3 values */
+.fixed-content-price{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0px;
+}
+
+.fixed-content-price-big{
+   font-size: 34pt;
+   font-weight: 900; 
+   margin-right: 0.1em;
+}
+
+.fixed-content-increment{
+    background-color: #5bbc2e;
+    border-radius: 2px;
+    color: white;
+    margin:0px;
+    padding:.1em;
+}
+
+.fixed-content-percent{
+    color:#5bbc2e;
+    font-size: 10pt;
+
+    text-align: center;
+}
+
+/** container for content that is changing via JS */
+.main-content-wrapper{
+    margin-top: 20px;
+    padding: 4em;
+    background-color: #fafafa;
+    width: 83%;
+    display: flex;
+    align-self: center;
+}
+
+/** here insert content for JS */
+.main-content{
+    display: block;
+}
