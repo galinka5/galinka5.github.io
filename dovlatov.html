@@ -18,16 +18,24 @@
 		line-height:1.5;
 		border-radius:2px;
 		box-sizing:border-box;
+		padding:1rem;
 	}
 	
 	.main-content{
 		padding:1rem;
 	}
 	
+	.main-container{
+		padding: 0 1rem;
+	}
+	
 	body{
 		font-family:Verdana, Arial, sans-serif;
 		font-size:1rem;
 		line-height:1.5;
+		margin:0;
+		color:#2f4e73;
+		background:#f2f9f8;
 	}
 	
 	h1{
@@ -36,7 +44,7 @@
 	
 	.page-container {
 	  position: relative;
-	  min-height: 95vh;
+	  min-height: 100vh;
 	}
 
 	.content-wrap {
@@ -47,7 +55,11 @@
 	  position: absolute;
 	  bottom: 0;
 	  width: 100%;
-	  height: 2.5rem;           
+	  height: 2.5rem; 
+	  background:#c5e6ef;  
+	  display:flex;
+	  justify-content:space-between;
+	  align-items:center;
 	}
 	
 	.footer p{
@@ -55,8 +67,16 @@
 		padding:0 1rem;
 	}
 	
-	.footer p img{
+	.footer  img{
 		float:right;
+		width:32px;
+		height:32px;
+	}
+	
+	header img{
+		width:32px;
+		height:32px;
+		margin:1rem;
 	}
 	
 	button{
@@ -66,16 +86,21 @@
 		display:block;
 		font-weight:bold;
 		background-color:white;
-		border:1px solid green;
-		color:green;
+		border:1px solid #2f4e73;
+		color:#2f4e73;
 		padding:1rem;
 		border-radius:2px;
+		margin-top:1rem;
+		cursor:pointer;
 	}
   </style>
 </head>
 
 <body>
 <div class="page-container">
+<header>
+	<img src="https://galinka5.github.io/icon.png">
+</header>
    <div class="content-wrap">
      <div class="main-container">
 	  <h1>Введите текст без смайликов</h1>
@@ -86,7 +111,7 @@
   </div>
    </div>
    <footer class="footer">
-   <p>Copyright © <a href="https://www.instagram.com/webgirl.halynka/">@webgirl.halynka</a> 2021, All rights reserved <img src="icon.png"></p>
+   <p>Copyright © <a href="https://www.instagram.com/webgirl.halynka/">@webgirl.halynka</a> 2021, All rights reserved</p> <img src="https://galinka5.github.io/icon.png">
    </footer>
  </div>
 </body>
@@ -96,6 +121,10 @@
 		var text = document.getElementById('src').value;
 		if (text.length > 2201){
 			document.querySelector('#error').innerHTML ='Текст слишком длинный';
+			return;
+		}
+		if (text.length == 0){
+			document.querySelector('#error').innerHTML ='Что-то ж написать нужно :)';
 			return;
 		}
 		let sentences = text.replace(/(\s+)?([^.!?]+?)([.!?]+|\n|$)/g,"$2$3*_*").split('*_*');
@@ -112,7 +141,8 @@
 				word = word.trim();
 				if (word.length == 1) continue;
 				//console.log(word);
-				word.replace(/['"]+/g, '');
+				word = word.replace(/['"]+/g, '');
+				word = word.replace('«', '');
 				console.log(word);
 				let L1 = word[0].toUpperCase();
 				if (fLetters.indexOf(L1)>=0){
