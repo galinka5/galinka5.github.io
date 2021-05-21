@@ -139,6 +139,7 @@
 				let word = words[i];
 				if (!word) continue;
 				word = word.trim();
+				if(!word || !word[0]) continue;
 				if (word.length == 1) continue;
 				//console.log(word);
 				word = word.replace(/['"]+/g, '');
