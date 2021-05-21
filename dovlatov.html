@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Проверка текста по Довлатову</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+  
+
+	.src-text-area{
+		width:100%;
+		height:300px;
+		resize:none;
+		font-family:Verdana, Arial, sans-serif;
+		font-size:1rem;
+		line-height:1.5;
+		border-radius:2px;
+		box-sizing:border-box;
+	}
+	
+	.main-content{
+		padding:1rem;
+	}
+	
+	body{
+		font-family:Verdana, Arial, sans-serif;
+		font-size:1rem;
+		line-height:1.5;
+	}
+	
+	h1{
+		text-align:center;
+	}
+	
+	.page-container {
+	  position: relative;
+	  min-height: 95vh;
+	}
+
+	.content-wrap {
+	  padding-bottom: 2.5rem;    
+	}
+
+	.footer {
+	  position: absolute;
+	  bottom: 0;
+	  width: 100%;
+	  height: 2.5rem;           
+	}
+	
+	.footer p{
+		margin:0;
+		padding:0 1rem;
+	}
+	
+	.footer p img{
+		float:right;
+	}
+	
+	button{
+		width:50%;
+		font-size:1.5rem;
+		margin:auto;
+		display:block;
+		font-weight:bold;
+		background-color:white;
+		border:1px solid green;
+		color:green;
+		padding:1rem;
+		border-radius:2px;
+	}
+  </style>
+</head>
+
+<body>
+<div class="page-container">
+   <div class="content-wrap">
+     <div class="main-container">
+	  <h1>Введите текст без смайликов</h1>
+	  <textarea id="src" class="src-text-area"></textarea>
+	  <button onclick="test()">Проверить</button>
+	  <p id="result"></p>
+	  <p id="error"></p>
+  </div>
+   </div>
+   <footer class="footer">
+   <p>Copyright © <a href="https://www.instagram.com/webgirl.halynka/">@webgirl.halynka</a> 2021, All rights reserved <img src="icon.png"></p>
+   </footer>
+ </div>
+</body>
+
+<script>
+	function test(){
+		var text = document.getElementById('src').value;
+		if (text.length > 2201){
+			document.querySelector('#error').innerHTML ='Текст слишком длинный';
+			return;
+		}
+		let sentences = text.replace(/(\s+)?([^.!?]+?)([.!?]+|\n|$)/g,"$2$3*_*").split('*_*');
+		document.querySelector('#error').innerHTML ='';
+		document.querySelector('#result').innerHTML ='';
+		let r = '';
+		for (let sts of sentences){
+			let words = sts.split(' ');
+			let fLetters = [];
+			let error = false;
+			for (let i = 0; i<words.length && !error; i++){
+				let word = words[i];
+				if (!word) continue;
+				word = word.trim();
+				if (word.length == 1) continue;
+				//console.log(word);
+				word.replace(/['"]+/g, '');
+				console.log(word);
+				let L1 = word[0].toUpperCase();
+				if (fLetters.indexOf(L1)>=0){
+					r+="Повтор буквы     "+L1+"      в предложении    : " + sts + "<br>";
+					error = true;
+					break;
+				}else
+				 fLetters.push(L1);
+			}
+		}
+		if (r=='') document.querySelector('#result').innerHTML = 'Все супер!';
+		else document.querySelector('#result').innerHTML =r;
+	}
+</script>
+
+</html>
