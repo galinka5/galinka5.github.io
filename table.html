@@ -9,7 +9,7 @@
   <style>
 
 	.page-container{
-		padding: 32px
+		padding: 32px 0;
 	}
 	
 	table{
@@ -25,18 +25,19 @@
 	
 	.table{
 		margin-top:20px;
+		width:100%;
 		max-width:100vw;
-		overflow-x:scroll;
+		overflow-x:auto;
 	}
 	
 	.thead, .tr{
 		display:flex;
-		
+		flex-wrap:nowrap;
 	}
 	
 	.td, .th{
 		border:1px solid green;
-		width:250px;
+		width:550px;
 	}
   </style>
 </head>
