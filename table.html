@@ -124,23 +124,29 @@
 		
 	
 	function mouseDownHandler(event) {
+		event.preventDefault();
 		const log = document.getElementById('log');
 		log.innerText += "type = " + event.type + ' target = '+ event.target+'\n';
 		if(event.target) event.target.addEventListener('mousemove', mouseMoveHandler);
 		if(event.target) event.target.addEventListener('touchmove', mouseMoveHandler);
 		if(event.target) event.target.addEventListener('mouseup', mouseUpHandler);
+		if(event.target) event.target.addEventListener('touchend', mouseUpHandler);
 	}
 	
 	function mouseMoveHandler(event) {
+		event.preventDefault();
 		const log = document.getElementById('log');
 		log.innerText += "type = " + event.type + ' target = '+ event.target+'\n';	
 	}
 	
 	function mouseUpHandler(event) {
+		event.preventDefault();
 		const log = document.getElementById('log');
 		log.innerText += "type = " + event.type + ' target = '+ event.target+'\n';
 		if(event.target) event.target.removeEventListener('mousemove', mouseMoveHandler);
 		if(event.target) event.target.removeEventListener('mouseup', mouseUpHandler);
+		if(event.target) event.target.removeEventListener('touchmove', mouseMoveHandler);
+		if(event.target) event.target.removeEventListener('touchend', mouseUpHandler);
 	}
 </script>
 
