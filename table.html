@@ -117,8 +117,10 @@
 <script>
 	var anchors = document.getElementsByClassName('th');
 	console.log(anchors);
-	for(var a of anchors)
+	for(var a of anchors){
 		a.addEventListener('mousedown', mouseDownHandler);
+		a.addEventListener('touchstart', mouseDownHandler);
+	}
 		
 	
 	function mouseDownHandler(event) {
