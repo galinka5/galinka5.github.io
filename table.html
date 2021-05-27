@@ -119,7 +119,7 @@
 	console.log(anchors);
 	for(var a of anchors){
 		a.addEventListener('mousedown', mouseDownHandler);
-		a.addEventListener('touchstart', mouseDownHandler);
+		a.addEventListener('touchstart', mouseDownHandler, {passive: true});
 	}
 		
 	
@@ -128,9 +128,9 @@
 		const log = document.getElementById('log');
 		log.innerText += "type = " + event.type + ' target = '+ event.target+'\n';
 		if(event.target) event.target.addEventListener('mousemove', mouseMoveHandler);
-		if(event.target) event.target.addEventListener('touchmove', mouseMoveHandler);
+		if(event.target) event.target.addEventListener('touchmove', mouseMoveHandler, {passive: true});
 		if(event.target) event.target.addEventListener('mouseup', mouseUpHandler);
-		if(event.target) event.target.addEventListener('touchend', mouseUpHandler);
+		if(event.target) event.target.addEventListener('touchend', mouseUpHandler, {passive: true});
 	}
 	
 	function mouseMoveHandler(event) {
