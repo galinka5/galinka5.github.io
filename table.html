@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Table</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+
+	.page-container{
+		padding: 32px
+	}
+	
+	table{
+		border:1px solid red;
+		resize:both;
+		table-layout:fixed;
+	}
+	
+	td, th{
+		border:1px solid red;
+		resize:both;
+	}
+	
+	.table{
+		margin-top:20px
+	}
+	
+	.thead, .tr{
+		display:flex;
+		
+	}
+	
+	.td, .th{
+		border:1px solid green;
+		width:150px;
+	}
+  </style>
+</head>
+
+<body>
+<div class="page-container">
+  
+	<table>
+		<thead>
+			<th>123</th>
+			<th>1232</th>
+			<th>1233</th>
+			<th>1234</th>
+		</thead>
+		<tbody>
+			<tr>
+				<td>asdadadad</td>
+				<td>asdadadad</td>
+				<td>asdadadad</td>
+				<td>asdadadad</td>
+			</tr>
+			<tr>
+				<td>asdadadad</td>
+				<td>asdadadad</td>
+				<td>asdadadad</td>
+				<td>asdadadad</td>
+			</tr>
+			<tr>
+				<td>asdadadad</td>
+				<td>asdadadad</td>
+				<td>asdadadad</td>
+				<td>asdadadad</td>
+			</tr>
+			<tr>
+				<td>asdadadad</td>
+				<td>asdadadad</td>
+				<td>asdadadad</td>
+				<td>asdadadad</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="table">
+		<div class="thead">
+			<div class="th col1">123</div>
+			<div class="th col2">1232</div>
+			<div class="th col3">1233</div>
+			<div class="th col4">1234</div>
+		</div>
+		<div class="tbody">
+			<div class="tr">
+				<div class="td">asdadadad</div>
+				<div class="td">asdadadad</div>
+				<div class="td">asdadadad</div>
+				<div class="td">asdadadad</div>
+			</div>
+			<div class="tr">
+				<div class="td">asdadadad</div>
+				<div class="td">asdadadad</div>
+				<div class="td">asdadadad</div>
+				<div class="td">asdadadad</div>
+			</div>
+			<div class="tr">
+				<div class="td">asdadadad</div>
+				<div class="td">asdadadad</div>
+				<div class="td">asdadadad</div>
+				<div class="td">asdadadad</div>
+			</div>
+			<div class="tr">
+				<div class="td">asdadadad</div>
+				<div class="td">asdadadad</div>
+				<div class="td">asdadadad</div>
+				<div class="td">asdadadad</div>
+			</div>
+		</div>
+	</div>
+</div>
+<p id="log"></p>
+</body>
+
+<script>
+	var anchors = document.getElementsByClassName('th');
+	console.log(anchors);
+	for(var a of anchors)
+		a.addEventListener('mousedown', mouseDownHandler);
+		
+	
+	function mouseDownHandler(event) {
+		const log = document.getElementById('log');
+		log.innerText += "type = " + event.type + ' target = '+ event.target+'\n';
+		if(event.target) event.target.addEventListener('mousemove', mouseMoveHandler);
+		if(event.target) event.target.addEventListener('mouseup', mouseUpHandler);
+	}
+	
+	function mouseMoveHandler(event) {
+		const log = document.getElementById('log');
+		log.innerText += "type = " + event.type + ' target = '+ event.target+'\n';	
+	}
+	
+	function mouseUpHandler(event) {
+		const log = document.getElementById('log');
+		log.innerText += "type = " + event.type + ' target = '+ event.target+'\n';
+		if(event.target) event.target.removeEventListener('mousemove', mouseMoveHandler);
+		if(event.target) event.target.removeEventListener('mouseup', mouseUpHandler);
+	}
+</script>
+
+</html>
