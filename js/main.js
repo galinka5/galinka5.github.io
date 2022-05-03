@@ -107,7 +107,7 @@ function linkedinSignup() {
 
 function facebookInit() {
     console.log('facebook init');
-    const redirect_uri = 'https://galinka5.github.io/pages/profile.html'; //https://demo.xano.com/xano-facebook-oauth/oauth/facebook
+    const redirect_uri = 'https://galinka5.github.io/'; //https://demo.xano.com/xano-facebook-oauth/oauth/facebook
     const url = `${BAS_API_URL}/api:nHqGsySr/oauth/facebook/init?redirect_uri=${redirect_uri}`;
     $.ajax
         ({
@@ -117,7 +117,7 @@ function facebookInit() {
             success: function (data) {
                 console.log(data);
                 debug(`OK on facebook init: ${data}`);
-                window.open(data);
+                window.open(data, 'popup', 'height=500,width=400,toolbar=no');
             }
         })
         .fail((response) => {
@@ -138,7 +138,7 @@ function facebookContinue(code) {
             success: function (data) {
                 console.log(data);
                 debug(`OK on facebook continue: ${data}`);
-                window.open(data, 'popup', 'height=500,width=400,toolbar=no');
+                window.open(data);
             }
         })
         .fail((response) => {
