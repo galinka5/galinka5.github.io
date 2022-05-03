@@ -1,5 +1,6 @@
 const BAS_API_URL = 'https://xm9z-n55r-l347.n7.xano.io';
 let token = '';
+let loginType = '';
 function signup(name, email, password) {
     console.log('signup');
     const url = `${BAS_API_URL}/api:dBb2rLnG/auth/signup`;
@@ -117,7 +118,7 @@ function facebookInit() {
             success: function (data) {
                 console.log(data);
                 debug(`OK on facebook init: ${data}`);
-                window.open(data, 'popup', 'height=500,width=400,toolbar=no');
+                window.location.href = data;
             }
         })
         .fail((response) => {
@@ -138,7 +139,6 @@ function facebookContinue(code) {
             success: function (data) {
                 console.log(data);
                 debug(`OK on facebook continue: ${data}`);
-                window.open(data);
             }
         })
         .fail((response) => {
