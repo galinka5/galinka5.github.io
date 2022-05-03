@@ -128,7 +128,7 @@ function facebookInit() {
 
 function facebookContinue(code) {
     console.log('facebook continue');
-    const redirect_uri = 'https://galinka5.github.io/pages/profile.html'; //https://demo.xano.com/xano-facebook-oauth/oauth/facebook
+    const redirect_uri = 'https://galinka5.github.io/'; //https://demo.xano.com/xano-facebook-oauth/oauth/facebook
     const url = `${BAS_API_URL}/api:nHqGsySr/oauth/facebook/continue?redirect_uri=${redirect_uri}&code=${code}`;
     $.ajax
         ({
