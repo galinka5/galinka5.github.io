@@ -138,7 +138,7 @@ function facebookContinue(code) {
             success: function (data) {
                 console.log(data);
                 token = data.token;
-                debug(`OK on facebook continue: Hello ${data.name} with email ${data.email} and id ${data.id}`);
+                debug(`OK on facebook continue: Hello ${data.name} with email ${data.email.email} and id ${data.email.id}`);
             }
         })
         .fail((response) => {
