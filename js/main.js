@@ -1,9 +1,10 @@
-const BAS_API_URL = 'https://xm9z-n55r-l347.n7.xano.io';
+const BASE_API_URL = 'https://xm9z-n55r-l347.n7.xano.io';
+const MAIN_URL = 'https://galinka5.github.io/';
 let token = '';
 let loginType = '';
 function signup(name, email, password) {
     console.log('signup');
-    const url = `${BAS_API_URL}/api:dBb2rLnG/auth/signup`;
+    const url = `${BASE_API_URL}/api:dBb2rLnG/auth/signup`;
 
     $.post(url,
         {
@@ -26,7 +27,7 @@ function signup(name, email, password) {
 function login(email, password) {
     console.log($);
     return new Promise((resolve, reject) => {
-        const url = `${BAS_API_URL}/api:dBb2rLnG/auth/login`;
+        const url = `${BASE_API_URL}/api:dBb2rLnG/auth/login`;
         $.ajax({
             type: "POST",
             url: url,
@@ -46,7 +47,7 @@ function login(email, password) {
 
 function getInfo() {
     console.log('getInfo');
-    const url = `${BAS_API_URL}/api:dBb2rLnG/auth/me`;
+    const url = `${BASE_API_URL}/api:dBb2rLnG/auth/me`;
     if (token) {
         $.ajax
             ({
@@ -57,7 +58,7 @@ function getInfo() {
                     "Authorization": "Bearer " + token
                 },
                 success: function (data) {
-                    console.log(data, status);
+                    console.log(data);
                     debug(`OK on getInfo: Hello, ${data.name}`);
                 }
             })
@@ -70,14 +71,14 @@ function getInfo() {
 
 function linkedinInit() {
     console.log('linkedinInit');
-    const url = `${BAS_API_URL}/api:TJxB2zJg/oauth/linkedin/init?redirect_uri=https://newsquantified.com`;
+    const url = `${BASE_API_URL}/api:TJxB2zJg/oauth/linkedin/init?redirect_uri=https://newsquantified.com`;
     $.ajax
         ({
             type: "GET",
             url: url,
             dataType: 'json',
             success: function (data) {
-                console.log(data, status);
+                console.log(data);
                 debug(`OK on linkedinInit: ${data}`);
             }
         })
@@ -89,7 +90,7 @@ function linkedinInit() {
 
 function linkedinSignup() {
     console.log('linkedinSignup');
-    const url = `${BAS_API_URL}/api:TJxB2zJg/oauth/linkedin/signup?code=78yjzaj2noifj4&redirect_uri=https://demo.xano.com/xano-linkedin-oauth/oauth/linkedin`;
+    const url = `${BASE_API_URL}/api:TJxB2zJg/oauth/linkedin/signup?code=78yjzaj2noifj4&redirect_uri=https://demo.xano.com/xano-linkedin-oauth/oauth/linkedin`;
     $.ajax
         ({
             type: "GET",
@@ -108,8 +109,7 @@ function linkedinSignup() {
 
 function facebookInit() {
     console.log('facebook init');
-    const redirect_uri = 'https://galinka5.github.io/'; //https://demo.xano.com/xano-facebook-oauth/oauth/facebook
-    const url = `${BAS_API_URL}/api:nHqGsySr/oauth/facebook/init?redirect_uri=${redirect_uri}`;
+    const url = `${BASE_API_URL}/api:nHqGsySr/oauth/facebook/init?redirect_uri=${MAIN_URL}`;
     $.ajax
         ({
             type: "GET",
@@ -129,8 +129,7 @@ function facebookInit() {
 
 function facebookContinue(code) {
     console.log('facebook continue');
-    const redirect_uri = 'https://galinka5.github.io/'; //https://demo.xano.com/xano-facebook-oauth/oauth/facebook
-    const url = `${BAS_API_URL}/api:nHqGsySr/oauth/facebook/continue?redirect_uri=${redirect_uri}&code=${code}`;
+    const url = `${BASE_API_URL}/api:nHqGsySr/oauth/facebook/continue?redirect_uri=${MAIN_URL}&code=${code}`;
     $.ajax
         ({
             type: "GET",
@@ -138,7 +137,8 @@ function facebookContinue(code) {
             dataType: 'json',
             success: function (data) {
                 console.log(data);
-                debug(`OK on facebook continue: ${data}`);
+                token = data.token;
+                debug(`OK on facebook continue: Hello ${data.name} with email ${data.email} and id ${data.id}`);
             }
         })
         .fail((response) => {
