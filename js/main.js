@@ -95,13 +95,34 @@ function linkedinSignup() {
             url: url,
             dataType: 'json',
             success: function (data) {
-                console.log(data, status);
+                console.log(data);
                 debug(`OK on linkedinSignup: ${data}`);
             }
         })
         .fail((response) => {
             console.log(response);
             debug(`Error on linkedinSignup: ${response.responseText}`, true);
+        })
+}
+
+function facebookLogin() {
+    console.log('facebook init');
+    const redirect_uri = 'https://galinka5.github.io/'; //https://demo.xano.com/xano-facebook-oauth/oauth/facebook
+    const url = `${BAS_API_URL}/api:nHqGsySr/oauth/facebook/init?redirect_uri=${redirect_uri}`;
+    $.ajax
+        ({
+            type: "GET",
+            url: url,
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                debug(`OK on facebook init: ${data}`);
+                window.open(data, '_blank');
+            }
+        })
+        .fail((response) => {
+            console.log(response);
+            debug(`Error on facebook init: ${response.responseText}`, true);
         })
 }
 

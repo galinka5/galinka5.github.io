@@ -4,6 +4,10 @@ h1 {
     width: 100%;
 }
 
+h3 {
+    text-align: center;
+}
+
 section {
     padding: 12px
 }
@@ -55,4 +59,27 @@ section button:disabled {
     box-sizing: border-box;
     padding: 8px;
     line-height: 2;
+}
+
+.socail-bar {
+    display: flex;
+    justify-content: center;
+    padding: 24px;
+}
+
+.socail-bar .social-bar-btn {
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+
+}
+
+.socail-bar .social-bar-btn+.social-bar-btn {
+    margin-left: 16px;
+}
+
+.socail-bar .social-bar-btn img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
 }

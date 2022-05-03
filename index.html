@@ -42,9 +42,12 @@
       </div>
     </div>
     <div class="col col-4">
-      <h3>LinkedIn</h3>
-      <button onclick="linkedinInitClick()">Init</button>
-      <button onclick="linkedinSignupClick()">Sign Up</button>
+      <h3>Social Bar</h3>
+      <div class="socail-bar">
+        <div class="social-bar-btn"><img src="/assets/images/google.svg"></div>
+        <div class="social-bar-btn" onclick="facebookClick()"><img src="/assets/images/facebook.svg"></div>
+        <div class="social-bar-btn"><img src="/assets/images/linkedIn.svg"></div>
+      </div>
     </div>
   </section>
   <section>
@@ -80,6 +83,10 @@
 
     function linkedinSignupClick() {
       linkedinSignup();
+    }
+
+    function facebookClick() {
+      facebookLogin();
     }
   </script>
 </body>
