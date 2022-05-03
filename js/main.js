@@ -105,7 +105,7 @@ function linkedinSignup() {
         })
 }
 
-function facebookLogin() {
+function facebookInit() {
     console.log('facebook init');
     const redirect_uri = 'https://galinka5.github.io/'; //https://demo.xano.com/xano-facebook-oauth/oauth/facebook
     const url = `${BAS_API_URL}/api:nHqGsySr/oauth/facebook/init?redirect_uri=${redirect_uri}`;
@@ -117,7 +117,28 @@ function facebookLogin() {
             success: function (data) {
                 console.log(data);
                 debug(`OK on facebook init: ${data}`);
-                window.open(data, '_blank');
+                window.open(data);
+            }
+        })
+        .fail((response) => {
+            console.log(response);
+            debug(`Error on facebook init: ${response.responseText}`, true);
+        })
+}
+
+function facebookContinue(code) {
+    console.log('facebook continue');
+    const redirect_uri = 'https://galinka5.github.io/pages/profile.html'; //https://demo.xano.com/xano-facebook-oauth/oauth/facebook
+    const url = `${BAS_API_URL}/api:nHqGsySr/oauth/facebook/continue?redirect_uri=${redirect_uri}&code=${code}`;
+    $.ajax
+        ({
+            type: "GET",
+            url: url,
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                debug(`OK on facebook continue: ${data}`);
+                window.open(data);
             }
         })
         .fail((response) => {
