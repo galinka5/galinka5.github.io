@@ -6,7 +6,7 @@ const BASE_FACEBOOK_API_URL = 'https://xm9z-n55r-l347.n7.xano.io/api:slmU_THW';
 const LINKEDIN_CODE = '78yjzaj2noifj4';
 const BASE_LINKEDIN_API_URL = 'https://xm9z-n55r-l347.n7.xano.io/api:UpsZVD6L';
 
-const MAIN_URL = 'https://galinka5.github.io/';
+const MAIN_URL = 'https://galinka5.github.io';
 let token = '';
 
 function signup(name, email, password) {
@@ -117,7 +117,7 @@ function linkedinContinue() {
 
 function facebookInit() {
     console.log('facebook init');
-    const url = `${BASE_FACEBOOK_API_URL}/oauth/facebook/init?redirect_uri=${MAIN_URL}`;
+    const url = `${BASE_FACEBOOK_API_URL}/oauth/facebook/init?redirect_uri=${MAIN_URL}/fb`;
     $.ajax
         ({
             type: "GET",
