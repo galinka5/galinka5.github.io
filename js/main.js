@@ -77,7 +77,7 @@ function getInfo() {
 
 function linkedinInit() {
     console.log('linkedinInit');
-    const url = `${BASE_LINKEDIN_API_URL}/oauth/linkedin/init?redirect_uri=${MAIN_URL}`;
+    const url = `${BASE_LINKEDIN_API_URL}/oauth/linkedin/init?redirect_uri=${MAIN_URL}/li`;
     $.ajax
         ({
             type: "GET",
@@ -96,8 +96,8 @@ function linkedinInit() {
 }
 
 function linkedinContinue() {
-    console.log('linkedinSignup');
-    const url = `${BASE_LINKEDIN_API_URL}/oauth/linkedin/continue?code=${LINKEDIN_CODE}&redirect_uri=${MAIN_URL}`;
+    console.log('linkedinContinue');
+    const url = `${BASE_LINKEDIN_API_URL}/oauth/linkedin/continue?code=${LINKEDIN_CODE}&redirect_uri=${MAIN_URL}/li`;
     $.ajax
         ({
             type: "GET",
@@ -105,20 +105,16 @@ function linkedinContinue() {
             dataType: 'json',
             success: function (data) {
                 console.log(data);
-                debug(`OK on linkedinSignup: ${data}`);
+                saveToSharedObject(data.token, data.email.email, data.email.id, data.name);
+                window.location.href = MAIN_URL;
+                debug(`OK on facebook continue: Hello ${data.name} with email ${data.email.email} and id ${data.email.id}`);
+
             }
         })
         .fail((response) => {
             console.log(response);
-            debug(`Error on linkedinSignup: ${response.responseText}`, true);
+            debug(`Error on linkedinContinue: ${response.responseText}`, true);
         })
-}
-
-function saveToSharedObject(token, email, id, name) {
-    localStorage.setItem("token", token);
-    localStorage.setItem("email", email);
-    localStorage.setItem("id", id);
-    localStorage.setItem("name", name);
 }
 
 function facebookInit() {
@@ -161,6 +157,13 @@ function facebookContinue(code) {
             console.log(response);
             debug(`Error on facebook init: ${response.responseText}`, true);
         })
+}
+
+function saveToSharedObject(token, email, id, name) {
+    localStorage.setItem("token", token);
+    localStorage.setItem("email", email);
+    localStorage.setItem("id", id);
+    localStorage.setItem("name", name);
 }
 
 function token() {
