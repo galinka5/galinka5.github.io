@@ -117,7 +117,7 @@ function linkedinContinue() {
 function saveToSharedObject(token, email, id, name) {
     localStorage.setItem("token", token);
     localStorage.setItem("email", email);
-    localStorage.setItem("password", password);
+    localStorage.setItem("id", id);
     localStorage.setItem("name", name);
 }
 
