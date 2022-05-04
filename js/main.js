@@ -138,7 +138,7 @@ function facebookInit() {
 function facebookContinue(code) {
     console.log('facebook continue');
     window.location.href.replace(window.location.search, '');
-    const url = `${BASE_FACEBOOK_API_URL}/oauth/facebook/continue?redirect_uri=${MAIN_URL}&code=${code}`;
+    const url = `${BASE_FACEBOOK_API_URL}/oauth/facebook/continue?redirect_uri=${MAIN_URL}/fb&code=${code}`;
     $.ajax
         ({
             type: "GET",
