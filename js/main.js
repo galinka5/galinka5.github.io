@@ -1,7 +1,10 @@
 const BASE_API_URL = 'https://xm9z-n55r-l347.n7.xano.io';
 
+
 const BASE_FACEBOOK_API_URL = 'https://xm9z-n55r-l347.n7.xano.io/api:slmU_THW';
-//const BASE_LINKEDIN_API_URL = 'https://xm9z-n55r-l347.n7.xano.io/api:slmU_THW';
+
+const LINKEDIN_CODE = '78yjzaj2noifj4';
+const BASE_LINKEDIN_API_URL = 'https://xm9z-n55r-l347.n7.xano.io/api:UpsZVD6L';
 
 const MAIN_URL = 'https://galinka5.github.io/';
 let token = '';
@@ -75,7 +78,7 @@ function getInfo() {
 
 function linkedinInit() {
     console.log('linkedinInit');
-    const url = `${BASE_API_URL}/api:TJxB2zJg/oauth/linkedin/init?redirect_uri=https://newsquantified.com`;
+    const url = `${BASE_LINKEDIN_API_URL}/oauth/linkedin/init?redirect_uri=${MAIN_URL}`;
     $.ajax
         ({
             type: "GET",
@@ -84,6 +87,7 @@ function linkedinInit() {
             success: function (data) {
                 console.log(data);
                 debug(`OK on linkedinInit: ${data}`);
+                window.location.href = data;
             }
         })
         .fail((response) => {
@@ -94,7 +98,7 @@ function linkedinInit() {
 
 function linkedinContinue() {
     console.log('linkedinSignup');
-    const url = `${BASE_API_URL}/api:TJxB2zJg/oauth/linkedin/signup?code=78yjzaj2noifj4&redirect_uri=https://demo.xano.com/xano-linkedin-oauth/oauth/linkedin`;
+    const url = `${BASE_LINKEDIN_API_URL}/oauth/linkedin/continue?code=${LINKEDIN_CODE}&redirect_uri=${MAIN_URL}`;
     $.ajax
         ({
             type: "GET",

@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <p><small>Version 1.1</small></p>
+  <p><small>Version 1.1.1</small></p>
   <h1>XANO API tests</h1>
   <section class="row">
     <div class="col col-12 col-md-4">
@@ -47,7 +47,7 @@
       <div class="socail-bar">
         <div class="social-bar-btn"><img src="/assets/images/google.svg"></div>
         <div class="social-bar-btn" onclick="facebookClick()"><img src="/assets/images/facebook.svg"></div>
-        <div class="social-bar-btn"><img src="/assets/images/linkedIn.svg"></div>
+        <div class="social-bar-btn" onclick="linkedinClick()"><img src="/assets/images/linkedIn.svg"></div>
       </div>
     </div>
   </section>
@@ -94,6 +94,10 @@
 
     function facebookClick() {
       facebookInit();
+    }
+
+    function linkedinClick() {
+      linkedinInit();
     }
   </script>
 </body>
