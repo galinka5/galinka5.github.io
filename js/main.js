@@ -77,7 +77,7 @@ function getInfo() {
 
 function linkedinInit() {
     console.log('linkedinInit');
-    const url = `${BASE_LINKEDIN_API_URL}/oauth/linkedin/init?redirect_uri=${MAIN_URL}/li`;
+    const url = `${BASE_LINKEDIN_API_URL}/oauth/linkedin/init?redirect_uri=${MAIN_URL}`;
     $.ajax
         ({
             type: "GET",
