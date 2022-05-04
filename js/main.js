@@ -7,7 +7,6 @@ const LINKEDIN_CODE = '78yjzaj2noifj4';
 const BASE_LINKEDIN_API_URL = 'https://xm9z-n55r-l347.n7.xano.io/api:UpsZVD6L';
 
 const MAIN_URL = 'https://galinka5.github.io';
-let token = '';
 
 function signup(name, email, password) {
     console.log('signup');
@@ -43,7 +42,7 @@ function login(email, password) {
                 password: password,
             },
             success: (data) => {
-                token = data.authToken;
+                saveToken(data.authToken);
                 resolve(data)
             },
             error: err => reject(err)
@@ -55,14 +54,14 @@ function login(email, password) {
 function getInfo() {
     console.log('getInfo');
     const url = `${BASE_API_URL}/api:OUY0MZ6t/auth/me`;
-    if (token) {
+    if (token()) {
         $.ajax
             ({
                 type: "GET",
                 url: url,
                 dataType: 'json',
                 headers: {
-                    "Authorization": "Bearer " + token
+                    "Authorization": "Bearer " + token()
                 },
                 success: function (data) {
                     console.log(data);
@@ -115,6 +114,13 @@ function linkedinContinue() {
         })
 }
 
+function saveToSharedObject(token, email, id, name) {
+    localStorage.setItem("token", token);
+    localStorage.setItem("email", email);
+    localStorage.setItem("password", password);
+    localStorage.setItem("name", name);
+}
+
 function facebookInit() {
     console.log('facebook init');
     const url = `${BASE_FACEBOOK_API_URL}/oauth/facebook/init?redirect_uri=${MAIN_URL}/fb`;
@@ -146,8 +152,8 @@ function facebookContinue(code) {
             dataType: 'json',
             success: function (data) {
                 console.log(data);
-                token = data.token;
-                window.location.href.replace(window.location.search, '');
+                saveToSharedObject(data.token, data.email.email, data.email.id, data.name);
+                window.location.href = MAIN_URL;
                 debug(`OK on facebook continue: Hello ${data.name} with email ${data.email.email} and id ${data.email.id}`);
             }
         })
@@ -155,6 +161,14 @@ function facebookContinue(code) {
             console.log(response);
             debug(`Error on facebook init: ${response.responseText}`, true);
         })
+}
+
+function token() {
+    return localStorage.getItem('token') || '';
+}
+
+function saveToken(value) {
+    localStorage.setItem("token", value);
 }
 
 function debug(message, error = false) {
