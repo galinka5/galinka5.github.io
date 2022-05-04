@@ -1,10 +1,14 @@
 const BASE_API_URL = 'https://xm9z-n55r-l347.n7.xano.io';
+
+const BASE_FACEBOOK_API_URL = 'https://xm9z-n55r-l347.n7.xano.io/api:slmU_THW';
+//const BASE_LINKEDIN_API_URL = 'https://xm9z-n55r-l347.n7.xano.io/api:slmU_THW';
+
 const MAIN_URL = 'https://galinka5.github.io/';
 let token = '';
-let loginType = '';
+
 function signup(name, email, password) {
     console.log('signup');
-    const url = `${BASE_API_URL}/api:dBb2rLnG/auth/signup`;
+    const url = `${BASE_API_URL}/api:OUY0MZ6t/auth/signup`;
 
     $.post(url,
         {
@@ -27,7 +31,7 @@ function signup(name, email, password) {
 function login(email, password) {
     console.log($);
     return new Promise((resolve, reject) => {
-        const url = `${BASE_API_URL}/api:dBb2rLnG/auth/login`;
+        const url = `${BASE_API_URL}/api:OUY0MZ6t/auth/login`;
         $.ajax({
             type: "POST",
             url: url,
@@ -47,7 +51,7 @@ function login(email, password) {
 
 function getInfo() {
     console.log('getInfo');
-    const url = `${BASE_API_URL}/api:dBb2rLnG/auth/me`;
+    const url = `${BASE_API_URL}/api:OUY0MZ6t/auth/me`;
     if (token) {
         $.ajax
             ({
@@ -88,7 +92,7 @@ function linkedinInit() {
         })
 }
 
-function linkedinSignup() {
+function linkedinContinue() {
     console.log('linkedinSignup');
     const url = `${BASE_API_URL}/api:TJxB2zJg/oauth/linkedin/signup?code=78yjzaj2noifj4&redirect_uri=https://demo.xano.com/xano-linkedin-oauth/oauth/linkedin`;
     $.ajax
@@ -109,7 +113,7 @@ function linkedinSignup() {
 
 function facebookInit() {
     console.log('facebook init');
-    const url = `${BASE_API_URL}/api:nHqGsySr/oauth/facebook/init?redirect_uri=${MAIN_URL}`;
+    const url = `${BASE_FACEBOOK_API_URL}/oauth/facebook/init?redirect_uri=${MAIN_URL}`;
     $.ajax
         ({
             type: "GET",
@@ -129,7 +133,8 @@ function facebookInit() {
 
 function facebookContinue(code) {
     console.log('facebook continue');
-    const url = `${BASE_API_URL}/api:nHqGsySr/oauth/facebook/continue?redirect_uri=${MAIN_URL}&code=${code}`;
+    window.location.href.replace(window.location.search, '');
+    const url = `${BASE_FACEBOOK_API_URL}/oauth/facebook/continue?redirect_uri=${MAIN_URL}&code=${code}`;
     $.ajax
         ({
             type: "GET",
@@ -138,6 +143,7 @@ function facebookContinue(code) {
             success: function (data) {
                 console.log(data);
                 token = data.token;
+                window.location.href.replace(window.location.search, '');
                 debug(`OK on facebook continue: Hello ${data.name} with email ${data.email.email} and id ${data.email.id}`);
             }
         })
@@ -146,7 +152,6 @@ function facebookContinue(code) {
             debug(`Error on facebook init: ${response.responseText}`, true);
         })
 }
-
 
 function debug(message, error = false) {
     $('#debug').append(`<span ${error ? 'class="error-msg"' : ''}> ${message}</span></br>`);
