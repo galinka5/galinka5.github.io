@@ -6,6 +6,7 @@ const BASE_FACEBOOK_API_URL = 'https://xm9z-n55r-l347.n7.xano.io/api:slmU_THW';
 const LINKEDIN_CODE = '78yjzaj2noifj4';
 const BASE_LINKEDIN_API_URL = 'https://xm9z-n55r-l347.n7.xano.io/api:UpsZVD6L';
 
+
 const MAIN_URL = 'https://galinka5.github.io';
 
 function signup(name, email, password) {
