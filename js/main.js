@@ -97,7 +97,7 @@ function linkedinInit() {
 
 function linkedinContinue() {
     console.log('linkedinContinue');
-    const url = `${BASE_LINKEDIN_API_URL}/oauth/linkedin/continue?code=${LINKEDIN_CODE}&redirect_uri=${MAIN_URL}/li`;
+    const url = `${BASE_LINKEDIN_API_URL}/oauth/linkedin/continue?code=${LINKEDIN_CODE}&redirect_uri=${MAIN_URL}`;
     $.ajax
         ({
             type: "GET",
