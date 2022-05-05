@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <p><small>Version 1.2.1</small></p>
+  <p><small>Version 1.2.3</small></p>
   <h1>XANO API tests</h1>
   <section class="row">
     <div class="col col-12 col-md-4">
@@ -60,7 +60,7 @@
     $(document).ready(function () {
       var urlParams = new URLSearchParams(window.location.search);
       const code = urlParams.get('code');
-      if (code) facebookContinue(code)
+      if (code) linkedinContinue(code)
     });
 
     function signupClick() {
