@@ -3,11 +3,10 @@ const BASE_API_URL = 'https://xm9z-n55r-l347.n7.xano.io';
 
 const BASE_FACEBOOK_API_URL = 'https://xm9z-n55r-l347.n7.xano.io/api:slmU_THW';
 
-const LINKEDIN_CODE = '78yjzaj2noifj4';
 const BASE_LINKEDIN_API_URL = 'https://xm9z-n55r-l347.n7.xano.io/api:UpsZVD6L';
 
 
-const MAIN_URL = 'https://galinka5.github.io';
+const MAIN_URL = 'https://valuation-dev.unicornequity.io';
 
 function signup(name, email, password) {
     console.log('signup');
@@ -78,7 +77,7 @@ function getInfo() {
 
 function linkedinInit() {
     console.log('linkedinInit');
-    const url = `${BASE_LINKEDIN_API_URL}/oauth/linkedin/init?redirect_uri=${MAIN_URL}`;
+    const url = `${BASE_LINKEDIN_API_URL}/oauth/linkedin/init?redirect_uri=${MAIN_URL}/li`;
     $.ajax
         ({
             type: "GET",
@@ -96,9 +95,9 @@ function linkedinInit() {
         })
 }
 
-function linkedinContinue(ode) {
+function linkedinContinue(code) {
     console.log('linkedinContinue');
-    const url = `${BASE_LINKEDIN_API_URL}/oauth/linkedin/continue?code=${code}&redirect_uri=${MAIN_URL}`;
+    const url = `${BASE_LINKEDIN_API_URL}/oauth/linkedin/continue?code=${code}&redirect_uri=${MAIN_URL}/li`;
     $.ajax
         ({
             type: "GET",
@@ -108,7 +107,7 @@ function linkedinContinue(ode) {
                 console.log(data);
                 saveToSharedObject(data.token, data.email.email, data.email.id, data.name);
                 window.location.href = MAIN_URL;
-                debug(`OK on facebook continue: Hello ${data.name} with email ${data.email.email} and id ${data.email.id}`);
+                debug(`OK on linkedin continue: Hello ${data.name} with email ${data.email.email} and id ${data.email.id}`);
 
             }
         })
@@ -120,7 +119,7 @@ function linkedinContinue(ode) {
 
 function facebookInit() {
     console.log('facebook init');
-    const url = `${BASE_FACEBOOK_API_URL}/oauth/facebook/init?redirect_uri=${MAIN_URL}/fb`;
+    const url = `${BASE_FACEBOOK_API_URL}/oauth/facebook/init?redirect_uri=${MAIN_URL}/fb/`;
     $.ajax
         ({
             type: "GET",
@@ -141,7 +140,9 @@ function facebookInit() {
 function facebookContinue(code) {
     console.log('facebook continue');
     window.location.href.replace(window.location.search, '');
-    const url = `${BASE_FACEBOOK_API_URL}/oauth/facebook/continue?redirect_uri=${MAIN_URL}/fb&code=${code}`;
+    console.log('facebookContinue', code);
+    const url = `${BASE_FACEBOOK_API_URL}/oauth/facebook/continue?redirect_uri=${MAIN_URL}/fb/&code=${code}`;
+    console.log('call', url);
     $.ajax
         ({
             type: "GET",
@@ -177,4 +178,9 @@ function saveToken(value) {
 
 function debug(message, error = false) {
     $('#debug').append(`<span ${error ? 'class="error-msg"' : ''}> ${message}</span></br>`);
+}
+
+function showProfile() {
+    let str = `email : ${localStorage.getItem("email")} id: ${localStorage.getItem("id")} name:${localStorage.getItem("name")}`
+    $('#profileInfo').text(str);
 }
