@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Test XANO endpoints</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="nofollow">
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <section>
+        <div class="row">
+            <div class="col col-12 col-md-6 m-auto">
+                <h1>Admin page</h1>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="row">
+            <div class="col col-12 col-md-6 m-auto">
+                <label>Name</label>
+                <input type="text" id="nameField">
+                <label>Email</label>
+                <input type="email" id="emailField">
+                <label>Password</label>
+                <input type="password" disabled id="passwordField">
+                <button>Change password</button>
+                <hr>
+                <label>Company</label>
+                <input type="text" id="companyField">
+                <button onclick="updateUserClick()">Update user</button>
+                <hr>
+                <h2>Social links</h2>
+                <div class="social-bar-btn mb-3" onclick="googleClick()"><img src="/assets/images1/google.svg">
+                </div>
+                <div class="social-bar-btn mb-3" onclick="facebookClick()"><img src="/assets/images1/facebook.svg">
+                </div>
+                <div class="social-bar-btn" onclick="linkedinClick()"><img src="/assets/images1/linkedIn.svg"></div>
+            </div>
+        </div>
+    </section>
+    <script src="../js/main.js"></script>
+    <script>
+        let userId;
+        $(document).ready(function () {
+            getInfo()
+                .then(response => {
+                    console.log(response);
+                    $('#nameField').val(response.name);
+                    $('#emailField').val(response.email);
+                    $('#passwordField').val(response.password);
+                    $('#companyField').val(response.company);
+                    userId = response.id;
+                })
+                .catch(error => console.log(error))
+        });
+
+        function googleClick() {
+
+        }
+
+        function facebookClick() {
+
+        }
+
+        function linkedinClick() {
+
+        }
+
+        function updateUserClick() {
+            editUser(userId, $('#nameField').val(), $('#emailField').val(), $('#companyField').val())
+                .then(response => console.log(response))
+                .catch(error => console.log(error))
+        }
+    </script>
+</body>
+
+</html>

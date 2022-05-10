@@ -67,18 +67,17 @@ section button:disabled {
     padding: 24px;
 }
 
-.socail-bar .social-bar-btn {
+.social-bar-btn {
     width: 48px;
     height: 48px;
     cursor: pointer;
-
 }
 
 .socail-bar .social-bar-btn+.social-bar-btn {
     margin-left: 16px;
 }
 
-.socail-bar .social-bar-btn img {
+.social-bar-btn img {
     width: 48px;
     height: 48px;
     object-fit: contain;

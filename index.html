@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <p><small>Version 1.3.1</small></p>
+  <p><small>Version 1.3.7</small></p>
   <h1>XANO API tests</h1>
   <section class="row">
     <div class="col col-12 col-md-4">
@@ -45,7 +45,7 @@
     <div class="col col-12 col-md-4 mt-3 mt-md-0">
       <h3>Social Bar</h3>
       <div class="socail-bar">
-        <div class="social-bar-btn"><img src="/assets/images1/google.svg"></div>
+        <div class="social-bar-btn" onclick="googleClick()"><img src="/assets/images1/google.svg"></div>
         <div class="social-bar-btn" onclick="facebookClick()"><img src="/assets/images1/facebook.svg"></div>
         <div class="social-bar-btn" onclick="linkedinClick()"><img src="/assets/images1/linkedIn.svg"></div>
       </div>
@@ -55,8 +55,24 @@
     <p class="debug-result" id="debug"></p>
   </section>
 
-  <script src="/js/main.js?426"></script>
+  <script src="/js/main.js?128"></script>
   <script>
+
+    $(document).ready(function () {
+      var urlParams = new URLSearchParams(window.location.search);
+      const code = urlParams.get('code');
+      console.log(code);
+      if (code) {
+        const scope = urlParams.get('scope');
+        if (scope && scope.indexOf('www.googleapis.com') >= 0) { //return after google signup
+          googleContinue(code);
+        }
+        if (!scope) {  //return after linkedin signup
+          linkedinContinue(code);
+        }
+      }
+    });
+
     function signupClick() {
       signup($('#name1').val(), $('#login1').val(), $('#password1').val());
     }
@@ -67,6 +83,7 @@
           console.log(data);
           $('#getInfoBtn').prop("disabled", false);
           debug(`OK on login: ${data.authToken}`);
+          gotoAdminPage();
         })
         .catch(error => {
           console.log(error);
@@ -92,6 +109,10 @@
 
     function linkedinClick() {
       linkedinInit();
+    }
+
+    function googleClick() {
+      googleInit();
     }
   </script>
 </body>
